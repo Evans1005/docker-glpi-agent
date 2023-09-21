@@ -1,5 +1,7 @@
 #!/bin/bash
 
+glpi_server="http://192.168.10.59"
+
 #export inventroy xml folder
 netdiscovery_fpath="/root/glpi/netdiscovery"
 
@@ -10,12 +12,13 @@ netdiscovery_data+=("192.168.1.1,192.168.1.254,public")
 #esx_data+=("192.168.2.1,192.168.2.254,public")
 
 
-while [ ! -d "$esx_fpath" ]; do
-mkdir "$esx_fpath"
+while [ ! -d "$netdiscovery_fpath" ]; do
+mkdir "$netdiscovery_fpath"
 done
 
 for item in "${esx_data[@]}"; do
     IFS=',' read -ra parts <<< "$item"
-    glpi-netdiscovery --first "${parts[0]}" --last "${parts[1]}" --v2c --community "${parts[2]}" --s "/root" --timeout 1
+    glpi-netdiscovery --first "${parts[0]}" --last "${parts[1]}" --v2c --community "${parts[2]}" --s "/root/glpi" --timeout 1
 
 done
+glpi-inject -v -R -d $netdiscovery_fpath --url $glpi_server

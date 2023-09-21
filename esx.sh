@@ -1,5 +1,6 @@
 #!/bin/bash
 
+glpi_server="http://192.168.10.59"
 #export inventroy xml folder
 esx_fpath="/root/glpi/esx"
 
@@ -19,3 +20,4 @@ for item in "${esx_data[@]}"; do
     glpi-esx --host "${parts[0]}" --user "${parts[1]}" --password "${parts[2]}" --path "$esx_fpath"
 
 done
+glpi-inject -v -R -d $esx_fpath --url $glpi_server
