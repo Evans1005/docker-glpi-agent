@@ -15,4 +15,4 @@ ADD agent.sh /root/
 ADD esx.sh /root/
 ADD netdiscovery.sh /root/
 
-CMD ["/bin/bash",/root/agent.sh]
+CMD ["/bin/bash","-c","bash /root/agent.sh"]
